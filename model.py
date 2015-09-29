@@ -1,2 +1,5 @@
-import love #why did i write this oh well more git messign around
-import numpy #s lrgit line
+import numpy as np
+import theano, theano.tensor as T
+import random
+import theano_lstm
+
