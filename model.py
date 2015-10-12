@@ -1,3 +1,7 @@
+import os
+os.environ["THEANO_FLAGS"] = "FAST_RUN,device=gpu,floatX=float32"
+
+
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.layers.recurrent import LSTM
@@ -6,7 +10,7 @@ import numpy as np
 
 layer1_nodes = 256
 layer2_nodes = 256
-#I think I will do a sine wave
+#I think I will do a sine wave instead
 model = Sequential()
 model.add(LSTM(1, return_sequences = True, output_dim = layer1_nodes))
 #Dropout goes here, but i wanted it to somewhat work before making it more complex.
@@ -30,7 +34,7 @@ y = np.sin(y)
 
 for i in range(5):
 	print("iteration: ", i)
-	model.fit(x, y, batch_size = 1, verbose = 2)
+	model.fit(x, y, batch_size = 20, verbose = 2)
 
 xseed = np.zeros((1,10,1))
 for i in range(10):
