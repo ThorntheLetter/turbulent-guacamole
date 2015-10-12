@@ -1,5 +1,5 @@
 import os
-os.environ["THEANO_FLAGS"] = "FAST_RUN,device=gpu,floatX=float32"
+os.environ["THEANO_FLAGS"] = "device=gpu,floatX=float32"
 
 
 from keras.models import Sequential
@@ -22,9 +22,9 @@ model.compile(loss='mse', optimizer='rmsprop') #mse because I somewhat know how 
 print("done") #so that I know it is done. test 1 done in 174.8s. does adding gpu help for this? test 2 in 93.4s.
 
 #simple data set code that will get rewritten to show progress later.
-x = np.zeros((100,10,1))
-y = np.zeros((100,1))
-for i in range(100):
+x = np.zeros((1000,10,1))
+y = np.zeros((1000,1))
+for i in range(1000):
 	for j in range(10):
 		x[i,j,0] = (i + j) / 10
 	y[i,0] = (i + 11) / 11
@@ -34,7 +34,7 @@ y = np.sin(y)
 
 for i in range(5):
 	print("iteration: ", i)
-	model.fit(x, y, batch_size = 20, verbose = 2)
+	model.fit(x, y, batch_size = 100, verbose = 2)
 
 xseed = np.zeros((1,10,1))
 for i in range(10):
