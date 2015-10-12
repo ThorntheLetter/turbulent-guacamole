@@ -15,8 +15,8 @@ model = Sequential()
 model.add(LSTM(1, return_sequences = True, output_dim = layer1_nodes))
 #Dropout goes here, but i wanted it to somewhat work before making it more complex.
 model.add(LSTM(layer1_nodes, return_sequences = False, output_dim = layer2_nodes))
-model.add(Dense(layer1_nodes, 1)) #The Output: layer2_nodes connections in, one connection out.
-model.add(Activation("tanh"))
+model.add(Dense(layer2_nodes, 1)) #The Output: layer2_nodes connections in, one connection out.
+#model.add(Activation("tanh"))
 
 model.compile(loss='mse', optimizer='rmsprop') #mse because I somewhat know how that one works, rmsprop because I haven't looked for good desctiptions of those yet.\
 print("done") #so that I know it is done. test 1 done in 174.8s. does adding gpu help for this? test 2 in 93.4s.
@@ -27,7 +27,7 @@ y = np.zeros((1000,1))
 for i in range(1000):
 	for j in range(10):
 		x[i,j,0] = (i + j) / 10
-	y[i,0] = (i + 11) / 11
+	y[i,0] = (i + 11) / 10
 
 x = np.sin(x)
 y = np.sin(y) 
