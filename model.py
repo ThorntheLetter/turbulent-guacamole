@@ -8,8 +8,8 @@ from keras.layers.recurrent import LSTM
 import numpy as np
 
 
-layer1_nodes = 256
-layer2_nodes = 256
+layer1_nodes = 64
+layer2_nodes = 64
 
 model = Sequential()
 model.add(LSTM(1, return_sequences = True, output_dim = layer1_nodes))
