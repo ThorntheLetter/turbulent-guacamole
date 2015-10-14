@@ -44,7 +44,7 @@ def predict_samples(outfile, infile, length = 500000, sample_length = DEFAULT_SA
 #currently will only support mono 16-bit signed int PCM wave files, but setting up to add more support later.
 if __name__ == "__main__":
 	infile = wave.open(sys.argv[1], 'rb')
-	outfile = wave.open(output.wav, 'wb')
+	outfile = wave.open(output.wav, 'w')
 	x, y = arrange_samples(infile)
-	model.fit(x, y, batch_size = 100, verobse = 0)
+	model.fit(x, y, batch_size = 100, verobose = 2)
 	predict_samples(outfile, infile)
