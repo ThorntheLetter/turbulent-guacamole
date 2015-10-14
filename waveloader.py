@@ -46,5 +46,5 @@ if __name__ == "__main__":
 	infile = wave.open(sys.argv[1], 'rb')
 	outfile = wave.open('output.wav', 'wb')
 	x, y = arrange_samples(infile)
-	model.themodel.fit(x, y, batch_size = 100, verbose = 2)
+	model.themodel.fit(x, y, batch_size = 1000, verbose = 1, nb_epochs = 1)
 	predict_samples(outfile, infile)
