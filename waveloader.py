@@ -32,7 +32,7 @@ def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
 
 def predict_samples(outfile, infile, length = 500000, sample_length = DEFAULT_SAMPLE_LENGTH):
 	outfile.setparams(infile.getparams())
-	x = np.zeros((1,sample_length,1), dtype = int16)
+	x = np.zeros((1,sample_length,1), dtype = 'int16')
 	for i in range(length):
 		y = model.themodel.predict(x)[0][0]
 		x = np.delete(x,0,1)
@@ -45,5 +45,5 @@ if __name__ == "__main__":
 	infile = wave.open(sys.argv[1], 'rb')
 	outfile = wave.open('output.wav', 'wb')
 	x, y = arrange_samples(infile)
-	model.themodel.fit(x, y, batch_size = 1000, verbose = 1, nb_epoch = 1)
+	model.themodel.fit(x, y, batch_size = 100, verbose = 1, nb_epoch = 1)
 	predict_samples(outfile, infile)
