@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import model
 
-DEFAULT_SAMPLE_LENGTH = 1000
+DEFAULT_SAMPLE_LENGTH = 100
 
 #Gets next frame in the file
 def get_next_frame(file):
