@@ -30,7 +30,7 @@ def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
 	return (x, y)
 
 
-def predict_samples(outfile, infile, length = 500000, sample_length = DEFAULT_SAMPLE_LENGTH):
+def predict_samples(outfile, infile, length = 50000, sample_length = DEFAULT_SAMPLE_LENGTH):
 	outfile.setparams(infile.getparams())
 	x = np.zeros((1,sample_length,1), dtype = 'int16')
 	for i in range(length):
