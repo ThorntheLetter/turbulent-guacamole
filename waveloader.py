@@ -35,6 +35,7 @@ def predict_samples(outfile, infile, length = 500000, sample_length = DEFAULT_SA
 	x = np.zeros((1,sample_length,1), dtype = 'int16')
 	for i in range(length):
 		y = model.themodel.predict(x)[0][0]
+		print(i,"/",length,": ",y)
 		x = np.delete(x,0,1)
 		x = np.append(x, [[[y]]], axis = 1)
 		outfile.writeframes(struct.pack('h', int(np.round(y))))
