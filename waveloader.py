@@ -46,7 +46,7 @@ def predict_samples(outfile, infile, length = 50000, sample_length = DEFAULT_SAM
 		print(i,"/",length,": ",y)
 		x = np.delete(x,0,1)
 		x = np.append(x, [[[y]]], axis = 1)
-		outfile.writeframes(struct.pack('h', int(np.round(unsquash(y))))
+		outfile.writeframes(struct.pack('h', int(np.round(unsquash(y)))))
 
 
 #currently will only support mono 16-bit signed int PCM wave files, but setting up to add more support later.
@@ -54,5 +54,5 @@ if __name__ == "__main__":
 	infile = wave.open(sys.argv[1], 'rb')
 	outfile = wave.open(sys.argv[2], 'wb')
 	x, y = arrange_samples(infile)
-	model.themodel.fit(x, y, batch_size = 150, verbose = 1, nb_epoch = 4)
+	model.themodel.fit(x, y, batch_size = 150, verbose = 1, nb_epoch = 2)
 	predict_samples(outfile, infile)
