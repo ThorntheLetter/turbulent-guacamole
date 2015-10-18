@@ -6,8 +6,8 @@ from keras.layers.recurrent import LSTM
 import numpy as np
 
 
-LAYER1_SIZE = 512
-LAYER2_SIZE = 512
+LAYER1_SIZE = 1024
+LAYER2_SIZE = 1024
 DROPOUT_RATE = .3
 
 themodel = Sequential()

@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import model
 
-DEFAULT_SAMPLE_LENGTH = 100
+DEFAULT_SAMPLE_LENGTH = 150
 
 #Gets next frame in the file
 def get_next_frame(file):
@@ -44,7 +44,7 @@ def predict_samples(outfile, infile, length = 50000, sample_length = DEFAULT_SAM
 #currently will only support mono 16-bit signed int PCM wave files, but setting up to add more support later.
 if __name__ == "__main__":
 	infile = wave.open(sys.argv[1], 'rb')
-	outfile = wave.open('output.wav', 'wb')
+	outfile = wave.open(sys.argv[2], 'wb')
 	x, y = arrange_samples(infile)
-	model.themodel.fit(x, y, batch_size = 100, verbose = 1, nb_epoch = 1)
+	model.themodel.fit(x, y, batch_size = 150, verbose = 1, nb_epoch = 4)
 	predict_samples(outfile, infile)
