@@ -27,7 +27,7 @@ def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
 	x = np.zeros((number_of_samples, sample_length, 1), dtype = 'float32')
 	y = np.zeros((number_of_samples, 1), dtype = 'float32')
 	for i in range(number_of_samples):
-		print(i, "/", number_of_samples, "\r")
+		print(i, "/", number_of_samples,)
 		file.setpos(position)
 		current_frame = get_next_frame(file)
 		position = file.tell()
@@ -38,14 +38,15 @@ def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
 	return (x, y)
 
 
-def predict_samples(outfile, infile, length = 50000, sample_length = DEFAULT_SAMPLE_LENGTH):
+def predict_samples(outfile, infile, length = 250000, sample_length = DEFAULT_SAMPLE_LENGTH):
 	outfile.setparams(infile.getparams())
 	x = np.zeros((1,sample_length,1), dtype = 'int16')
 	for i in range(length):
 		y = model.themodel.predict(x)[0][0]
-		print(i,"/",length,": ",y)
+		
 		x = np.delete(x,0,1)
 		x = np.append(x, [[[y]]], axis = 1)
+		print(i,"/",length,": ", unsquash(y))
 		outfile.writeframes(struct.pack('h', int(np.round(unsquash(y)))))
 
 
