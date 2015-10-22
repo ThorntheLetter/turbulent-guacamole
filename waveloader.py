@@ -18,6 +18,8 @@ def squash(input, width = 2):
 def unsquash(input, width = 2):
 	return(input * (2 ** ((8 * width) - 1)))
 
+def vunsquash = np.vectorize(unsquash())
+
 #Arranges the file into numpy matrix for input.
 def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
 	file.rewind()
@@ -40,14 +42,12 @@ def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
 
 def predict_samples(outfile, infile, length = 250000, sample_length = DEFAULT_SAMPLE_LENGTH):
 	outfile.setparams(infile.getparams())
-	x = np.zeros((1,sample_length,1), dtype = 'int16')
+	x = np.zeros((1,sample_length,1), dtype = 'float32')
 	for i in range(length):
-		y = model.themodel.predict(x)[0][0]
-		
-		x = np.delete(x,0,1)
+		y = model.themodel.predict(x[:,-1*sample_length,:])[0][0]
 		x = np.append(x, [[[y]]], axis = 1)
-		print(i,"/",length,": ", unsquash(y))
-		outfile.writeframes(struct.pack('h', int(np.round(unsquash(y)))))
+		print(i,"/",length)
+	outfile.writeframes(vunsquash(x[sample_length:]).astype('int16').tobytes())
 
 
 #currently will only support mono 16-bit signed int PCM wave files, but setting up to add more support later.
