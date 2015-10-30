@@ -18,7 +18,7 @@ def squash(input, width = 2):
 def unsquash(input, width = 2):
 	return(input * (2 ** ((8 * width) - 1)))
 
-def vunsquash = np.vectorize(unsquash())
+vunsquash = np.vectorize(unsquash)
 
 #Arranges the file into numpy matrix for input.
 def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
@@ -44,7 +44,7 @@ def predict_samples(outfile, infile, length = 250000, sample_length = DEFAULT_SA
 	outfile.setparams(infile.getparams())
 	x = np.zeros((1,sample_length,1), dtype = 'float32')
 	for i in range(length):
-		y = model.themodel.predict(x[:,-1*sample_length,:])[0][0]
+		y = model.themodel.predict(x[:,-sample_length:,:])[0][0]
 		x = np.append(x, [[[y]]], axis = 1)
 		print(i,"/",length)
 	outfile.writeframes(vunsquash(x[sample_length:]).astype('int16').tobytes())
@@ -55,5 +55,5 @@ if __name__ == "__main__":
 	infile = wave.open(sys.argv[1], 'rb')
 	outfile = wave.open(sys.argv[2], 'wb')
 	x, y = arrange_samples(infile)
-	model.themodel.fit(x, y, batch_size = 150, verbose = 1, nb_epoch = 2)
+	model.themodel.fit(x, y, batch_size = 500, verbose = 1, nb_epoch = 2)
 	predict_samples(outfile, infile)
