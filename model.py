@@ -4,6 +4,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.layers.recurrent import LSTM
 
+
 LAYER1_SIZE = 256
 LAYER2_SIZE = 256
 DROPOUT_RATE = .3
