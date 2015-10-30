@@ -3,11 +3,9 @@ os.environ["THEANO_FLAGS"] = "device=gpu,floatX=float32"
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.layers.recurrent import LSTM
-import numpy as np
 
-
-LAYER1_SIZE = 1024
-LAYER2_SIZE = 1024
+LAYER1_SIZE = 256
+LAYER2_SIZE = 256
 DROPOUT_RATE = .3
 
 themodel = Sequential()
