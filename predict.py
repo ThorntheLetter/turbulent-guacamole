@@ -1,15 +1,15 @@
 import wave
 from model import themodel
 import argparse
-from data-util import *
+from datautil import *
 import numpy as np
 
 
 parser = argparse.ArgumentParser(description = "train the model")
 parser.add_argument('model', help='The name of the HDF5 file with the model\'s weights.')
 parser.add_argument('output', help='The name of the wav file to write the predictions of.')
-parser.add_argument('-s', '--sample', type = int, dest='sample_size' default = 44100, help='The number of frames to include in each sample.')
-parser.add_argument('-l', '--length', type = int, dest='length' default = 441000, help='The number of frames to predict.')
+parser.add_argument('-s', '--sample', type = int, dest='sample_size', default = 44100, help='The number of frames to include in each sample.')
+parser.add_argument('-l', '--length', type = int, dest='length', default = 441000, help='The number of frames to predict.')
 
 def predict_samples(outfile, length, sample_length):
 	outfile.setparams((nchannels = 1, sampwidth = 2, framerate = 44100, nframes = 0, comptype = 'NONE', compname = 'not compressed')
