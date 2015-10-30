@@ -3,41 +3,13 @@ import struct
 import numpy as np
 import sys
 import model
+import data-util
 
 DEFAULT_SAMPLE_LENGTH = 150
 
-#Gets next frame in the file
-def get_next_frame(file):
-	return (struct.unpack("<h",file.readframes(1))[0])
 
-#takes input frame and width of sample in bytes and transforms it into a number between -1 and 1
-def squash(input, width = 2):
-	return(input/(2 ** ((8 * width)-1)))
 
-#reverses squash()
-def unsquash(input, width = 2):
-	return(input * (2 ** ((8 * width) - 1)))
 
-def vunsquash = np.vectorize(unsquash())
-
-#Arranges the file into numpy matrix for input.
-def arrange_samples(file, sample_length = DEFAULT_SAMPLE_LENGTH):
-	file.rewind()
-	position = file.tell()
-	number_of_frames = file.getnframes()
-	number_of_samples = number_of_frames - sample_length
-	x = np.zeros((number_of_samples, sample_length, 1), dtype = 'float32')
-	y = np.zeros((number_of_samples, 1), dtype = 'float32')
-	for i in range(number_of_samples):
-		print(i, "/", number_of_samples,)
-		file.setpos(position)
-		current_frame = get_next_frame(file)
-		position = file.tell()
-		for j in range(sample_length):
-			x[i,j,0] = squash(current_frame)
-			current_frame = get_next_frame(file)
-		y[i,0] = squash(current_frame)
-	return (x, y)
 
 
 def predict_samples(outfile, infile, length = 250000, sample_length = DEFAULT_SAMPLE_LENGTH):
@@ -47,7 +19,7 @@ def predict_samples(outfile, infile, length = 250000, sample_length = DEFAULT_SA
 		y = model.themodel.predict(x[:,-1*sample_length,:])[0][0]
 		x = np.append(x, [[[y]]], axis = 1)
 		print(i,"/",length)
-	outfile.writeframes(vunsquash(x[sample_length:]).astype('int16').tobytes())
+	outfile.writeframes(data-util.vunsquash(x[sample_length:]).astype('int16').tobytes())
 
 
 #currently will only support mono 16-bit signed int PCM wave files, but setting up to add more support later.
