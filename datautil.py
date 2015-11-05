@@ -9,12 +9,12 @@ def squash(input, width = 2):
 def unsquash(input, width = 2):
 	return(input * (2 ** ((8 * width) - 1)))
 
-def vunsquash = np.vectorize(unsquash)
+vunsquash = np.vectorize(unsquash)
 
-def vsquash = np.vectorize(squash)
+vsquash = np.vectorize(squash)
 
 #Gets next frame in the file
-def get_next_frames(file, nframes = DEFAULT_SAMPLE_LENGTH):
+def get_next_frames(file, nframes):
 	return np.fromstring(file.readframes(nframes), dtype = 'int16')
 
 #Arranges the file into numpy matrix for input using every possible sequence.
@@ -33,6 +33,7 @@ def arrange_samples_full(file, sample_length):
 		y[i,:] = get_next_frames(file, 1)
 		position = file.tell()
 		file.readframes(1)
+	print()
 	return (vsquash(x), vsquash(y))
 
 
@@ -48,4 +49,5 @@ def arrange_samples_sequential(filename, sample_length):
 		print(i, "/", number_of_samples, end ='\r')
 		x[i,:,0] = get_next_frames(file, sample_length)
 		y[i,:] = get_next_frames(file, 1)
+	print()	
 	return (vsquash(x), vsquash(y))
