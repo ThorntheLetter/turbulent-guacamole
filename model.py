@@ -14,5 +14,5 @@ themodel.add(LSTM(LAYER1_SIZE, return_sequences = True, input_dim = 1))
 themodel.add(Dropout(DROPOUT_RATE))
 themodel.add(LSTM(LAYER1_SIZE, return_sequences = False))
 themodel.add(Dropout(DROPOUT_RATE))
-themodel.add(Dense(LAYER2_SIZE, 1))
+themodel.add(Dense(1))
 themodel.compile(loss='mse', optimizer='rmsprop') #mse because I somewhat know how that one works, rmsprop because I haven't looked for good desctiptions of those yet.
