@@ -22,7 +22,8 @@ def predict_samples(outfilename, length, sample_length):
 		y = themodel.predict(x[:,-sample_length:,:])[0,0]
 		x = np.append(x, [[[y]]], axis = 1)
 		print(i,"/",length, end = '\r')
-	outfile.writeframes(vunsquash(x[sample_length:]).astype('int16').tobytes())
+	print()
+	outfile.writeframes(vunsquash(x[0,sample_length:,0]).astype('int16').tobytes())
 
 def main():
 #	args = parser.parse_args()
