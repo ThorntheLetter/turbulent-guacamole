@@ -21,7 +21,7 @@ def main():
 	if args.model:
 		themodel.load_weights(args.model)
 	x, y = args.split(args.data, args.sample_size)
-	themodel.fit(x, y, batch_size = 10, verbose = 1, nb_epoch = 1)
+	themodel.fit(x, y, batch_size = 100, verbose = 1, nb_epoch = 1)
 	themodel.save_weights(args.output, overwrite = True)
 
 if __name__ == "__main__":

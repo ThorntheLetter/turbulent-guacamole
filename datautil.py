@@ -47,8 +47,9 @@ def arrange_samples_sequential(filename, sample_length):
 	x = np.zeros((number_of_samples, sample_length, 1), dtype = 'float32')
 	y = np.zeros((number_of_samples, 1), dtype = 'float32')
 	for i in range(number_of_samples):
-		print(i, "/", number_of_samples, end ='\r')
+		print(i, "/", number_of_samples)
 		x[i,:,0] = get_next_frames(file, sample_length)
 		y[i,:] = get_next_frames(file, 1)
+		print(y[i,0])
 	print()	
 	return (vsquash(x), vsquash(y))
