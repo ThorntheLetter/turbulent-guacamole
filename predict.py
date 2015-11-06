@@ -21,7 +21,7 @@ def predict_samples(outfilename, length, sample_length):
 	for i in range(length):
 		y = themodel.predict(x[:,-sample_length:,:])[0,0]
 		x = np.append(x, [[[y]]], axis = 1)
-		print(i,"/",length, end = '\r')
+		print(i,"/",length, ": ", y)
 	print()
 	outfile.writeframes(vunsquash(x[0,sample_length:,0]).astype('int16').tobytes())
 
