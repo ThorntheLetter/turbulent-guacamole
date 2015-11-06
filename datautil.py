@@ -23,16 +23,17 @@ def arrange_samples_full(filename, sample_length):
 	file.rewind()
 	position = file.tell()
 	number_of_frames = file.getnframes()
-	number_of_samples = number_of_frames - sample_length - 1
+	number_of_samples = number_of_frames - sample_length
 	x = np.zeros((number_of_samples, sample_length, 1), dtype = 'float32')
 	y = np.zeros((number_of_samples, 1), dtype = 'float32')
 	for i in range(number_of_samples):
+		file.setpos(position)
+		get_next_frames(file,1)
+		position = file.tell()
 		print(i, "/", number_of_samples, end = '\r')
 		file.setpos(position)
 		x[i,:,0] = get_next_frames(file, sample_length)
 		y[i,:] = get_next_frames(file, 1)
-		position = file.tell()
-		file.readframes(1)
 	print()
 	return (vsquash(x), vsquash(y))
 
