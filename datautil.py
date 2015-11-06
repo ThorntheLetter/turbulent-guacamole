@@ -33,7 +33,7 @@ def arrange_samples_full(filename, sample_length):
 		print(i, "/", number_of_samples, end = '\r')
 		file.setpos(position)
 		x[i,:,0] = get_next_frames(file, sample_length)
-		y[i,:] = get_next_frames(file, 1)
+		y[i,0] = get_next_frames(file, 1)
 	print()
 	return (vsquash(x), vsquash(y))
 
