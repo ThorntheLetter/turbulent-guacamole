@@ -18,7 +18,7 @@ def get_next_frames(file, nframes):
 	return np.fromstring(file.readframes(nframes), dtype = 'int16')
 
 #Arranges the file into numpy matrix for input using every possible sequence.
-def arrange_samples_full(file, sample_length):
+def arrange_samples_full(filename, sample_length):
 	file = wave.open(filename, 'rb')
 	file.rewind()
 	position = file.tell()
